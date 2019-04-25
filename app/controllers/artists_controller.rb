@@ -1,8 +1,13 @@
 class ArtistsController < ApplicationController
+  before_action :set_artist, only: [:show, :edit, :update]
+
+
   def index
+    @artists = Artist.all
   end
 
   def show
+    @artist.song_count = @artist.songs.count
   end
 
   def new
@@ -46,5 +51,9 @@ class ArtistsController < ApplicationController
 
   def artist_params
     params.require(:artist).permit(:name)
+  end
+
+  def set_artist
+    @artist = Artist.find_by(params[:id])
   end
 end
